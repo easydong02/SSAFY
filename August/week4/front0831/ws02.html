@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SSAFY BOOK CAFE</title>
+    
+    <style type="text/css">
+      *{ 
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style-type: none;
+      }
+
+      a{
+        text-decoration: none;
+        color: #0f0e0e;
+      }
+
+      a:hover{
+        cursor: pointer;
+      }
+
+      header{
+        height: 70px;
+        box-shadow: 0 1 10 rgba(0, 0, 0, 0.3);  /*3개주면 위 옆 아래*/
+      }
+
+      header>nav{
+        position: relative;
+        margin: auto;
+        max-width: 1200px;
+        width: calc(100%-120px);
+        height: 70px;
+      }
+      nav>a{
+        float: left;
+        margin-left: 20px;
+        line-height: 70px;
+        height: 70px;
+      }
+
+      .header_nav_home{
+        font-size: 38px;
+        cursor: pointer;
+      }
+
+      .header_nav_menu{
+        float: right;
+        top:0;
+        width: auto;
+        height: auto;
+        transition: none;
+      }
+
+      .header_nav_menuitem{
+        display: inline-block;
+        margin-right: 20px;
+        height: 70px;
+        line-height: 70;
+      }
+
+      .header_nav_menuitem:last-child{
+        margin: right 10px;
+      }
+
+      .content{
+        margin: 10px auto;
+      }
+
+      .content_left{
+        float:left;
+        width: 25%;
+      }
+
+      .profile{
+        width: 100%;
+        padding: 10px 10%;
+        text-align: center;
+      }
+
+      .profile>img{
+        width: 70%;
+        border-radius: 10px;
+      }
+
+      .store_title{
+        text-align: center;
+        padding: 10px;
+      }
+
+      .store_display{
+        padding: 10px;
+        font-size: 18px;
+        line-height: 30px;
+        background: #dbdbdb ;
+        border-radius: 5px;
+
+      }
+
+      .store_item li{
+        padding: 10 10 10 20;
+        font-size: 18px;
+        background: #dddddd;
+        margin-top: 5px;
+        border-radius: 5px;
+        text-align: left;
+      }
+
+      .store_area{
+        color: #414141;
+        font-weight: bold;
+      }
+
+      .content_body{
+        float: right;
+        width: 75%;
+        min-height: 500px;
+      }
+
+      .menu{
+        padding: 10px 20px;
+      }
+
+      .menu ul{
+        overflow: hidden;
+      }
+
+      .menu ul >li{
+        overflow: hidden;
+      }
+
+      .menu ul > li{
+        float: left;
+        margin: 10px;
+        width: calc(25%-20px);
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- 상단 Header Start -->
+    <header>
+      <nav>
+        <a class="header_nav_home" href="#">SSAFY BookCafe</a>
+        <a href="#">공지사항</a>
+        <div class="header_nav_search"></div>
+        <div class="header_nav_menu">
+        <div>
+          <div class="header_nave_menuitem">
+            <a class="nav_link" href="#">로그인</a>
+          </div>
+          <div class="header_nave_menuitem">
+            <a href="#">회원가입</a>
+          </div>
+          <div class="header_nave_menuitem">
+            <a href="#">로그아웃</a>
+          </div>
+          <div class="header_nave_menuitem">
+            <a href="#">마이페이지</a>
+          </div >
+          <div class="header_nave_menuitem">
+            <a href="#">관리자</a>
+          </div>
+        </div>
+        </div>
+      </nav>
+    </header>
+    <!-- 상단 Header End -->
+    <!-- 중앙 Contents Start  -->
+  
+    <div class="contnet">
+      <!-- 왼쪽 Content Start  -->
+      <div class="content_left">
+        <!-- 프로필 사진  Start  -->
+        <div class="profile">
+          <img class="profile_img" src="img/noimg.png" alt="이미지없다" width="120px" />
+          <img class="profile_img" id="profile_img" src="img/profile.png" alt="profile" width="120px" />
+        </div class="store_title">
+        <!-- 프로필 사진  End  -->
+        <!-- 메뉴 Start  -->
+        <div class="store_title">
+          <div class="store_display">전국매장펼치기</div>
+          <div class="store_dispaly" style="display: none;">전국매장접기</div>
+          <ul class="store_item">
+            <li>
+              <a class="store_area">서울</a>
+              <div class="store_item_sub">
+                <ul>
+                  <li>역삼점</li>
+                  <li>선릉점</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="store_area">대전</a>
+              <div class="store_item_sub">
+                <ul>
+                  <li>학하점</li>
+                  <li>봉명점</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="store_area">구미</a>
+              <div class="store_item_sub">
+                <ul>
+                  <li>안동점</li>
+                  <li>공단점</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="store_area">광주</a>
+              <div class="store_item_sub">
+                <ul>
+                  <li>하남산단점</li>
+                  <li>광주역점</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- 메뉴 End  -->
+        <!-- 설문조사 Start  -->
+        <div>
+          <div>[ 당신의 선택 ]</div>
+          <div>공부하고 싶은 분야를 골라 주세요!!!</div>
+          <div>
+            <ul>
+              <li>
+                <input type="radio" name="" id="" />
+                <img src="img/poll/python.png" width="70" alt="" /> Python
+              </li>
+              <li>
+                <input type="radio" name="" id="" />
+                <img src="img/poll/html5.png" width="70" alt="" /> HTML5
+              </li>
+              <li>
+                <input type="radio" name="" id="" />
+                <img src="img/poll/vuejs.png" width="70" alt="" /> Vue.js
+              </li>
+              <li>
+                <input type="radio" name="" id="" />
+                <img src="img/poll/java.png" width="70" alt="" /> Java
+              </li>
+            </ul>
+          </div>
+          <div>
+            <button>투표하기</button>
+            <button>결과보기</button>
+          </div>
+          <div>투표기간 : 21.03.01 ~ 21.03.31</div>
+        </div>
+        <!-- 설문조사 End  -->
+      </div>
+      <!-- 왼쪽 Content End  -->
+      <!-- 중앙 Content Start  -->
+      <div>
+        <!-- 프로그래밍 Section Start  -->
+        <section>
+          <h3>[ 프로그래밍 언어 ]</h3>
+          <ul>
+            <li>
+              <div>
+                <div>
+                  <img src="img/book/p_book01.png" alt="p_book01.png" width="130px" />
+                </div>
+                <div>Do it! 점프 투 파이썬 (18,800원)</div>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div>
+                  <img src="img/book/p_book02.png" alt="p_book02.png" width="130px" />
+                </div>
+                <div>HTML5 API 프로그래밍 (23,000원)</div>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div>
+                  <img src="img/book/p_book03.png" alt="p_book03.png" width="130px" />
+                </div>
+                <div>백견불여일타 Vue.js입문 (22,000원)</div>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div>
+                  <img src="img/book/p_book04.png" alt="p_book04.png" width="130px" />
+                </div>
+                <div>Java 프로그래밍 (26,500원)</div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <!-- 프로그래밍 Section End  -->
+        <!-- 에세이 Section Start  -->
+        <section>
+          <h3>[ 에세이 ]</h3>
+          <ul>
+            <li>
+              <div>
+                <div>
+                  <img src="img/book/e_book01.png" alt="e_book01.png" width="130px" />
+                </div>
+                <div>2인조 (14,800원)</div>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div>
+                  <img src="img/book/e_book02.png" alt="e_book02.png" width="130px" />
+                </div>
+                <div>안녕, 소중한 사람 (15,000원)</div>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div>
+                  <img src="img/book/e_book03.png" alt="e_book03.png" width="130px" />
+                </div>
+                <div>꽃을 보든 너를 본다 (10,000원)</div>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div>
+                  <img src="img/book/e_book04.png" alt="e_book04.png" width="130px" />
+                </div>
+                <div>곰돌이 푸, 행복한 일은 매일 있어 (12,000원)</div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <!-- 에세이 Section End  -->
+      </div>
+      <!-- 중앙 Content End  -->
+    </div>
+    <!-- 중앙 Contents End  -->
+    <!-- 하단 footer Start  -->
+    <footer>
+      <ul>
+        <li><a href="#">카페소개</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">오시는 길</a></li>
+        <li><a href="#">&copy; SSAFY Corp.</a></li>
+      </ul>
+
+
+    </footer>
+    <!-- 하단 footer End  -->
+  </body>
+</html>
