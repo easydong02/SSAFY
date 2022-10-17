@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Annotation 관련 설정 -->
+	<!-- base-package에 지정된 package를 모두 살펴서 Annotation이 있으면 처리하라. -->
+	<context:component-scan base-package= "com.ssafy.myapp.calc.all">
+	</context:component-scan>
+</beans>
