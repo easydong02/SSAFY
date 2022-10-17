@@ -3,7 +3,7 @@ package com.ssafy.myapp.calc.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration //SpringÀÌ ÀÎ½ÄÇÏ´Â Æ¯º°ÇÑ Java Å¬·¡½º
+@Configuration //Springì´ ì¸ì‹í•˜ëŠ” íŠ¹ë³„í•œ Java í´ë˜ìŠ¤
 public class CalcConfiguration {
 
 	

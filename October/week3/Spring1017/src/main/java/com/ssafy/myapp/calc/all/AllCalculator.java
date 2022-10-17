@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class AllCalculator {
 	
 	@Autowired
-	@Qualifier("aaa") // aaa¶ó´Â ÀÌ¸§À» °¡Áø Bean DIÇØÁà
+	@Qualifier("aaa") // aaaë¼ëŠ” ì´ë¦„ì„ ê°€ì§„ Bean DIí•´ì¤˜
 	Calculator calculator;
 	
 	public int add(int n1,int n2) {

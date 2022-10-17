@@ -3,14 +3,14 @@ package com.ssafy.myapp.calc.hasa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component //annotation ±â¹İ spring¿¡ ÀÚ½Å °´Ã¼¸¦ µî·Ï
+@Component //annotation ï¿½ï¿½ï¿½ springï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½
 public class UseCalculator {
 	
-	// #1 field ÁÖÀÔ
-//	@Autowired //¾Æ·¡ type¿¡ ¸Â´Â °´Ã¼¸¦ ¸¸µé¾î¼­ DI ÇØÁÖ¼¼¿ä
+	// #1 field ì£¼ì…
+//	@Autowired //ì•„ë˜ typeì— ë§ëŠ” ê°ì²´ë¥¼ ë§Œë“¤ì–´ì„œ DI í•´ì£¼ì„¸ìš”
 //	Calculator calculator;
 	
-	// #2 stter ÁÖÀÔ
+	// #2 stter ì£¼ì…
 	
 //	Calculator calculator;
 //	
@@ -19,7 +19,7 @@ public class UseCalculator {
 //		this.calculator = calculator;
 //	}
 	
-	// #3. constructor ÁÖÀÔ
+	// #3. constructor ì£¼ì…
 	Calculator calculator;
 	
 	@Autowired

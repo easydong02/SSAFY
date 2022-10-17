@@ -4,19 +4,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class CalcMain {
 	public static void main(String[] args) {
-		//Spring DI »ç¿ë X
-//		Calculator calculator= new Calculator(); //Á÷Á¢ ÄÚµå¿¡¼­ °´Ã¼¸¦ »ı¼º
+		//Spring DI ì‚¬ìš© X
+//		Calculator calculator= new Calculator(); //ì§ì ‘ ì½”ë“œì—ì„œ ê°ì²´ë¥¼ ìƒì„±
 //		int temp = calculator.add(5,6);
 //		System.out.println(temp);
 		
-		//Spring DI »ç¿ë O
-		//Spring ½ÇÇàÈ¯°æ ±¸¼º
-		//Spring framework¿¡¼­ Á¦°øÇÏ´Â Å¬·¡½º¸¦ ÀÌ¿ë
+		//Spring DI ì‚¬ìš© O
+		//Spring ì‹¤í–‰í™˜ê²½ êµ¬ì„±
+		//Spring frameworkì—ì„œ ì œê³µí•˜ëŠ” í´ë˜ìŠ¤ë¥¼ ì´ìš©
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("all-calc-annotation.xml");
 		
 		
-		//Spring °´Ã¼ »ı¼º ¿ä±¸ -> springÀÌ °´Ã¼¸¦ »ı¼ºÇØ¼­ ³²°ÜÁØ´Ù.
-		AllCalculator calculator = (AllCalculator)context.getBean("allCalculator"); //Spring¿¡°Ô °´Ã¼ »ı¼ºÀ» ¿ä±¸(¸¸µé¾îÁà)
+		//Spring ê°ì²´ ìƒì„± ìš”êµ¬ -> springì´ ê°ì²´ë¥¼ ìƒì„±í•´ì„œ ë‚¨ê²¨ì¤€ë‹¤.
+		AllCalculator calculator = (AllCalculator)context.getBean("allCalculator"); //Springì—ê²Œ ê°ì²´ ìƒì„±ì„ ìš”êµ¬(ë§Œë“¤ì–´ì¤˜)
 		System.out.println(calculator.add(4, 5));
 	}
 }
