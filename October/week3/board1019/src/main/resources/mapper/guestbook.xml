@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.edu.board.model.mapper.GuestBookMapper">
+
+	<select id="listArticle" resultType="GuestBook">
+		select g.articleno, g.userid, g.subject, g.content, g.regtime, m.username
+		from guestbook g, ssafy_member m
+		where g.userid = m.userid
+	</select>
+	
+	<insert id="writeArticle" parameterType="GuestBook">
+		insert into guestbook(userid,subject,content)
+		values(#{userId},#{subject},#{content})
+	</insert>
+	
+	<select id="selectArticle" parameterType="int" resultType="GuestBook">
+		select articleno,userid,subject,content,regtime
+		from guestbook
+		where articleno = #{articleNo}
+	</select>
+	
+	<update id="updateArticle" parameterType="GuestBook" >
+		update guestbook
+		set subject = #{subject}, content =#{content}
+		where articleno = #{articleNo}
+	</update>
+	
+	<delete id="deleteArticle" parameterType="int">
+		delete from guestbook
+		where articleno = #{articleNo}
+	</delete>
+	
+</mapper>
