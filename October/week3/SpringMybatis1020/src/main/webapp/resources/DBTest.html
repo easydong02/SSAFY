@@ -1,0 +1,122 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>DBTest</title>
+</head>
+<body>
+
+    <h1>Receive JSON From DB</h1>
+    <button id="btnEmpDetail">Emp 상세</button>
+    <button id="btnEmpList">Emp 목록</button>
+    <br>
+    <button id="btnEmpInsert">Emp 등록</button>
+    <button id="btnEmpUpdate">Emp 수정</button>
+    <button id="btnEmpDelete">Emp 삭제</button>
+
+
+<script>
+
+//No jQuery
+
+window.onload = function(){
+
+    document.querySelector("#btnEmpDetail").onclick = async function(){
+
+        try{
+            let response = await fetch('/mybatis/empDetail/1500')
+            let data = await response.json();
+            console.log(data);
+        }catch(error){
+            console.error(error);
+        }
+
+      };
+
+      document.querySelector("#btnEmpList").onclick = async function(){
+
+          try{
+            let response = await fetch('/mybatis/empList')
+            let data = await response.json();
+            console.log(data);
+        }catch(error){
+            console.error(error);
+        }
+      }
+
+    var empInsertData  = {
+            employeeId  : 1998,
+            firstName      : "ny",
+            lastName    : "Son",
+            email        : "sonny@heroes.com",
+            hireDate    : "2020-10-10"
+        };
+
+    document.querySelector("#btnEmpInsert").onclick = async function(){
+        // No JSON data, Just params
+        let urlParams = new URLSearchParams({
+            employeeId: 1998,
+            firstName      : "ny",
+            lastName    : "Son",
+            email        : "sonny@heroes.com",
+            hireDate    : "2020-10-10"
+        });
+
+        let fetchOptions = {
+            method: "POST",
+            body: urlParams,
+        }
+
+        try{
+            let response = await fetch('/mybatis/empInsert', fetchOptions)
+            let data = await response.json();
+            console.log(data);
+        }catch(error){
+            console.error(error);
+        }
+      }
+
+
+    var empUpdateData  = {
+            employeeId      : 1998,
+            firstName      : "sonny",
+            LastName        : "Ul",
+            email        : "ulsonny@heroes.com",
+            hireDate    : "2030-10-10"
+        };
+
+    document.querySelector("#btnEmpUpdate").onclick = async function(){
+
+        let fetchOptions = {
+          method: "POST",
+          body: new URLSearchParams(empUpdateData)
+        }
+
+        try{
+            let response = await fetch("/mybatis/empUpdate/", fetchOptions)
+            let data = await response.json();
+            console.log(data);
+        }catch(error){
+            console.error(error);
+        }
+      }
+
+    document.querySelector("#btnEmpDelete").onclick = async function(){
+		
+        let fetchOptions = {
+          method: "POST",
+          body: new URLSearchParams( { employeeId    : 1998 } )
+        }
+
+        try{
+            let response = await fetch("/mybatis/empDelete/", fetchOptions)
+            let data = await response.json();
+            console.log(data);
+        }catch(error){
+            console.error(error);
+        }
+      }
+
+};
+</script>
+</body>
+</html>

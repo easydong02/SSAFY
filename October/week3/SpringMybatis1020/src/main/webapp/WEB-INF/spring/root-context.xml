@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis:scan을 사용하기 위해 xmlns:mybatis 속성이 추가되었고 xsi:schemaLocation에 mybatis 정보가 추가 되었다. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- db 연결 정보를 이용해서 connection pool datasource를 DI -->
+	<context:property-placeholder location="classpath:database/jdbc.properties" />
+
+ 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- MyBatis를 사용하기 위한 sqlSessionFactory를 등록한다. -->
+	<!-- sqlSessionFactory는 sqlSession 객체들을 관리하고, sqlSession 객체가 Java - Mybatis 관리한다. -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config/mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:mapper/*.xml"/>
+	</bean>
+
+	<!-- mybatis에서 제공하는 scan 태그를 통해 repository interface들의 위치를 지정한다. -->
+	<!-- annotation 설정이 있을 경우, @Mapper 생략 불가, annotation 이 없고 base-package 만 지정하면 @Mapper 생략 가능(모든 interface를 Mapper로 인식)  -->		
+	<mybatis-spring:scan base-package="com.mycom.mybatis.dao" annotation="org.apache.ibatis.annotations.Mapper"/>
+  
+</beans>
