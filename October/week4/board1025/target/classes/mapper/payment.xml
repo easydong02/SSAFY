@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.pay.model.mapper.PaymentMapper">
+
+	<resultMap type="paymentDto" id="pay">
+		<result column="pid" property="pid"/>
+		<result column="user_id" property="userId"/>
+		<result column="pday" property="pday"/>
+		<result column="pamount" property="pamount"/>
+		<result column="pwhy" property="pwhy"/>
+		<result column="fin" property="fin"/>
+	</resultMap>
+
+    <insert id="write" parameterType="paymentDto">
+		insert into payment (user_id, pday, pamount, pwhy, fin)
+		values (#{userId}, sysdate(), #{pamount}, #{pwhy}, 0)
+		<selectKey resultType="int" keyProperty="pid" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<select id="list" parameterType="string" resultType="paymentDto">
+		select pid,user_id, pday, pamount, pwhy, fin from payment
+		order by pday, pamount desc 
+		where user_id=#{userId} and fin=0
+	</select>
+	<select id="lists"  resultType="paymentDto">
+		select pid,user_id, pday, pamount, pwhy, fin from payment
+		where fin=0
+		order by pday, pamount desc 
+	</select>
+	
+	<update id="fin" parameterType="int">
+		update payment set fin=1 
+		where pid=#{pid} 
+	</update>
+	
+	<select id="calendar" resultType="paymentDto">
+	    select pid, user_id userId, substr(pday, 1, 10) pday, pamount, pwhy 
+	    from payment
+	    where fin=0
+	    group by pday
+	    order by pday
+	</select>
+	
+</mapper>
