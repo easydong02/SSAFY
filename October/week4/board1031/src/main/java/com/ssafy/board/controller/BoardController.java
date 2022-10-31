@@ -2,18 +2,20 @@ package com.ssafy.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -195,21 +197,31 @@ public class BoardController {
 //		}
 //	}
 	
-	@GetMapping(value = "/download")
-    public ResponseEntity<Object> downloadFile(@Value("${file.path.upload-files}") String filePath, @RequestParam("sfolder") String sfolder, @RequestParam("ofile") String ofile,
-            @RequestParam("sfile") String sfile, HttpSession session) throws IOException {
-        MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-        if (memberDto != null) {
-            Path path = Paths.get(filePath + sfolder + "/" + sfile);
-            Resource resource = new InputStreamResource(Files.newInputStream(path));
-            File file = new File(filePath);
+	  @GetMapping(value = "/download")
+	    public ResponseEntity<Object> downloadFile(@Value("${file.path.upload-files}") String filePath, @RequestParam("sfolder") String sfolder, @RequestParam("ofile") String ofile,
+	            @RequestParam("sfile") String sfile, HttpSession session,  HttpServletRequest request, HttpServletResponse response) throws IOException {
+	        MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
+	        if (memberDto != null) {
+	            Path path = Paths.get(filePath + sfolder + "/" + sfile);
+	            Resource resource = new InputStreamResource(Files.newInputStream(path));
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(ofile).build());
+	            HttpHeaders headers = new HttpHeaders();
 
-            return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
-        }
-        return null;
-    }
+	            String header = request.getHeader("User-Agent");
+	            boolean isIE = header.indexOf("MSIE") > -1 || header.indexOf("Trident") > -1;
+	            String fileName = null;
+	            // IE는 다르게 처리
+	            if (isIE) {
+	                fileName = URLEncoder.encode(ofile, "UTF-8").replaceAll("\\+", "%20");
+	            } else {
+	                fileName = new String(ofile.getBytes("UTF-8"), "ISO-8859-1");
+	            }
+
+	            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(fileName).build());
+	            
+	            return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
+	        }
+	        return null;
+	    }
 
 }
