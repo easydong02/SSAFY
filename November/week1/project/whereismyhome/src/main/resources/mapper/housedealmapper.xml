@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.housedeal.model.mapper.HouseDealMapper">
+
+
+	<resultMap type="HouseDealInfo" id="housedealinfo">
+		<result column="apartmentName" property="apartName"/>
+		<result column="floor" property="floor"/>
+		<result column="area" property="area"/>
+		<result column="dong" property="dong"/>	
+		<result column="dealAmount" property="dealAmount"/>
+		<result column="lng" property="lng"/>
+		<result column="lat" property="lat"/>
+	</resultMap>
+	
+	<select id="getHouseDeal" parameterType="map" resultMap="housedealinfo">
+		SELECT d.no, i.apartmentName, d.floor, d.area, i.dong, d.dealAmount, i.lng, i.lat 
+		FROM  housedeal d join houseinfo i 
+		on d.aptCode = i.aptCode 
+		where i.dongCode = #{fullCode} and d.dealYear= #{dealYear} and d.dealMonth=#{dealMonth}
+	</select>
+	
+	
+	<select id="getHouseDealFull" parameterType="String" resultMap="housedealinfo">
+		SELECT d.no, i.apartmentName, d.floor, d.area, i.dong, d.dealAmount, i.lng, i.lat 
+		FROM  housedeal d join houseinfo i 
+		on d.aptCode = i.aptCode 
+		where i.dongCode = #{fullCode}
+	</select>
+
+	
+</mapper>
+

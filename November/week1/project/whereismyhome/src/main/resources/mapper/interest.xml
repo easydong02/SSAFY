@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.interest.model.mapper.InterestMapper">
+	
+	<!-- 완료 -->
+	<select id="getList" parameterType="string" resultType="interestDto">
+		select user_id,dongCode from interest  where user_id = #{user_id}
+	</select>
+	
+	<!-- 완료 -->
+	<insert id="insert" parameterType="interestDto">
+		insert into interest(user_id, dongCode)
+		values(#{user_id}, #{dongCode})
+	</insert>
+	
+	<!-- 완료 -->	
+	<delete id="delete" parameterType="string">
+		delete from interest
+		where user_id=#{user_id} and dongCode= #{dongCode}
+	</delete>
+	
+	<!-- 완료 -->
+	<select id="count" parameterType="string" resultType="int">
+		select count(dongCode) as interestcount from interest
+		where user_id = #{user_id}
+	</select>
+	
+
+</mapper>

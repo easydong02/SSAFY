@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.member.model.mapper.MemberMapper">
+	
+	<!-- 완료 -->
+	<resultMap type="memberDto" id="member">
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="role" property="role"/>
+	</resultMap>
+	
+	<!-- 완료 -->
+	<resultMap type="memberDto" id="memberAll" extends="member">
+		<result column="user_password" property="userPwd"/>
+		<result column="email_id" property="emailId"/>
+		<result column="email_domain" property="emailDomain"/>
+		<result column="join_date" property="joinDate"/>
+		<result column="age" property="age"/>
+		<result column="role" property="role"/>
+		<result column="delflag" property="delflag"/>
+	</resultMap>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(user_id)
+		from members
+		where user_id = #{userid}
+	</select>
+	
+	<!-- 완료 -->
+	<insert id="regist" parameterType="memberDto">
+		insert into members(user_id,password,name,email,age,role,delflag)
+		values (#{userId}, hex(aes_encrypt(#{userPwd},sha2('abc',256))), #{userName}, concat(#{emailId}, '@', #{emailDomain}),#{age},#{role},0)
+	</insert>
+
+	<!-- 완료 -->
+	<select id="login" parameterType="map" resultMap="member">
+		select user_id, name as user_name, role
+		from members
+		where user_id = #{userId} and convert(aes_decrypt(unhex(password),sha2('abc',256)) using utf8) =#{userPwd}
+	</select>
+	
+	<!-- 완료 -->
+	<select id="getList" resultMap="memberAll">
+		select user_id, name, age ,role, delflag
+		from members
+	</select>
+	
+	<!-- 완료 -->
+	<select id="getInfo" parameterType="string" resultMap="memberAll">
+		select user_id,name,email,age,role
+		from members
+		where user_id = #{userId}
+	</select>
+	
+	<!-- 완료 -->
+	<update id="update" parameterType="memberDto">
+		update members
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userPwd != null">user_password =hex(aes_encrypt(#{userPwd},sha2('abc',256))) ,</if>
+			<if test="name != null">name =#{userName} ,</if>
+			<if test="email != null">email = concat(#{emailId}, '@', #{emailDomain}),</if>
+			<if test="age != null">age = #{age} ,</if>
+			<if test="role != null">role = #{role} ,</if>
+		</trim>
+		where user_id = #{userId}
+	</update>
+	
+	<!-- 완료 -->
+	<update id="delete" parameterType="String">
+		update members set delflag=1
+		where user_id = #{userId}
+	</update>
+	
+</mapper>
