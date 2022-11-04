@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BoardList</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="result">
+        <table>
+          <tr>
+            <th>글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>삭제</th>
+          </tr>
+
+          <template v-if="isShow">
+            <tr v-for="article in articles" :key="article.articleNo">
+              <td @click="showOther(article.articleNo)">{{article.articleNo}}</td>
+              <td @click="showId(article.articleNo)">{{article.subject}}</td>
+              <td>{{article.userName}}</td>
+              <td>{{article.registerTime | showDay }}</td>
+              <td @click="boarddelete(article.articleNo)">글 삭제</td>
+            </tr>
+          </template>
+          <template v-else>
+            <tr>
+              <td>작성된 글이 없습니다.</td>
+            </tr>
+          </template>
+        </table>
+      </div>
+
+      <div v-if="isShow2">
+        <table>
+          <tr>
+            <th>번호</th>
+            <td v-text="article.articleNo"></td>
+          </tr>
+          <tr>
+            <th>작성자</th>
+            <td v-text="article.userId"></td>
+          </tr>
+          <tr>
+            <th>제목</th>
+            <td v-text="article.subject"></td>
+          </tr>
+          <tr>
+            <th>내용</th>
+            <td v-text="article.content"></td>
+          </tr>
+          <tr>
+            <th>조회수</th>
+            <td v-text="article.hit"></td>
+          </tr>
+          <tr>
+            <th>작성일</th>
+            <td>{{article.registerTime | showDay}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <a href="./write.html">글쓰기</a>
+    <script>
+      const addr = "http://localhost:8080/board1104/board";
+      new Vue({
+        el: "#app",
+        data: function () {
+          return {
+            articles: [],
+            article: {},
+            isShow: false,
+            isShow2: false,
+          };
+        },
+        created() {
+          axios
+            .get(addr + "/")
+            .then((response) => {
+              console.log("----------");
+              console.log(response);
+              this.articles = response.data;
+              this.isShow = true;
+            })
+            .catch((error) => {
+              this.isShow = false;
+            });
+        },
+        filters: {
+          showDay(value) {
+            return value != null ? value.substr(0, 10) : "";
+          },
+        },
+        methods: {
+          showId(no) {
+            axios
+              .get(`${addr}/${no}`)
+              .then((response) => {
+                //function() 형태는 객체로 받고 람다로 하면 객체로 안 받아서 this. 를 해야 인식한다.
+                console.log("----------");
+                console.log(response);
+                this.article = response.data;
+                this.isShow2 = true;
+              })
+              .catch((error) => {
+                this.isShow2 = false;
+              });
+          },
+          showOther(no) {
+            location.href = "./detail.html?articleNo=" + no;
+          },
+          boarddelete(no) {
+            axios.delete(`${addr}/${no}`).then(({ data }) => {
+              this.articles = data;
+              this.isShow = true;
+            });
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
