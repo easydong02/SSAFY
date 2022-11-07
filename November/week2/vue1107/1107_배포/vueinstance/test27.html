@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <form action="http://www.naver.com">
+      <button v-on:click="greet1('SSAFY')">Greet</button>
+      <button v-on:click="greet2($event, 'Ssafy')">Greet</button>
+    </form>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      methods: {
+        greet1: function (msg) {
+          alert('Hello ' + msg + '!');
+          console.dir(event.target); //제대로 찍힘(이벤트 타겟인 버튼)
+        },
+        greet2: function (e, msg) {
+          if (e) e.preventDefault(); //버튼의 디폴트 이벤트인 submit을 제거
+          alert('Hello ' + msg + '!');
+          console.dir(e.target); //제대로 찍힘(이벤트 타겟인 버튼 but 네이버로 이동x)
+        },
+      },
+    });
+  </script>
+</body>
+
+</html>

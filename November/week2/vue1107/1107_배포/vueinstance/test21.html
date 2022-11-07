@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="message" />
+    <p>원본 메시지: "{{ message }}"</p>
+    <p>역순으로 표시한 메시지1: "{{ reversedMsg }}"</p>
+    <p>역순으로 표시한 메시지2: "{{ reversedMsg }}"</p>
+    <p>역순으로 표시한 메시지3: "{{ reversedMsg }}"</p>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        message: '안녕하세요 싸피여러분',
+      },
+      /*
+      computed는 로그가 한 번만 찍힘
+      괄호가 없는 것이 property 방식
+      computed는 vue라는 객체에 종속적인 data(message)가 ‘바뀌었을 때만’ 호출된다. 
+      그러니까 호출해서 함수를 실행하여 값이 저장되면 
+      이 값이 다른 곳에 있는 동일한 값들에도 다 적용(캐싱메모리에 있는 데이터를 활용)
+      */
+      computed: {
+        reversedMsg: function () {
+          console.log('꺼꾸로 찍기');
+          return this.message.split('').reverse().join('');
+        },
+      },
+    });
+  </script>
+</body>
+
+</html>
