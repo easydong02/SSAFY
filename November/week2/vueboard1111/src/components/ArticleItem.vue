@@ -6,15 +6,13 @@
     <b-td>{{ article.registerTime }}</b-td>
   </b-tr>
 </template>
-
 <script>
 export default {
-  name: "AritlceItem",
+  name: "ArticleItem",
   props: {
-    article: Object,
+    article: {},
     index: Number,
   },
 };
 </script>
-
-<style></style>
+<style scoped></style>

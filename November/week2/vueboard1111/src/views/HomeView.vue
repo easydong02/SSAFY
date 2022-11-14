@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <hello-world msg="인재군 인재리스트" />
+    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
