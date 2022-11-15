@@ -1,130 +1,67 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex"
-          target="_blank"
-          rel="noopener"
-          >vuex</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul>
+    <div>
+      <b-table-simple striped hover small caption-top responsive>
+        <caption>
+          인재군 군민들의 목소리
+        </caption>
+        <colgroup>
+          <col style="width: 5%" />
+          <col style="width: 45%" />
+          <col style="width: 25%" />
+          <col style="width: 25%" />
+        </colgroup>
+        <b-thead head-variant="dark">
+          <b-tr>
+            <b-th>글번호</b-th>
+            <b-th>제목</b-th>
+            <b-th>작성자</b-th>
+            <b-th>작성일</b-th>
+          </b-tr>
+        </b-thead>
+        <b-tbody>
+          <article-item
+            v-for="(article, index) in articles"
+            :key="index"
+            :article="article"
+            :index="index"
+          ></article-item>
+        </b-tbody>
+        <b-tfoot>
+          <b-tr>
+            <b-td colspan="4" variant="secondary" class="text-right">
+              모든글수: <b>{{ articles.length }}</b>
+            </b-td>
+          </b-tr>
+        </b-tfoot>
+      </b-table-simple>
+    </div>
   </div>
 </template>
 
 <script>
+import http from "@/api/http.js";
+import ArticleItem from "@/components/ArticleItem";
 export default {
   name: "HelloWorld",
+  components: {
+    ArticleItem,
+  },
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      articles: [],
+    };
+  },
+  created() {
+    http.get(`/`).then(({ data }) => {
+      this.articles = data;
+    });
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+<style scoped></style>

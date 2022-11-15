@@ -1,4 +1,4 @@
-# vueboard6
+# vueboard5
 
 ## Project setup
 ```
